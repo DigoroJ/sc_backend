@@ -14,9 +14,19 @@ const addNotification = "INSERT INTO notification (msg) VALUES ($1)";
 const totalBookings = "SELECT COUNT(*) FROM bookings";
 const totalIssues = "SELECT COUNT(*) FROM issue";
 const totalUsers = "SELECT COUNT(*) FROM users";
+const totalNotifications = "SELECT COUNT(*) FROM notification";
 const reportAnIssue = "INSERT INTO issue (msg, location) VALUES ($1, $2)";
 const getIssues = "SELECT * from issue";
 const book  = "INSERT INTO bookings (user_id, service, time, date) values ($1, $2, $3, $4)";
+const getCourses = "SELECT * FROM course";
+const subjectPerCourse = "select * from subject where course_id = $1";
+const setTimetable = "INSERT INTO timetable (day, time, lecturer_id, course_id, subject_id) values ($1, $2, $3, $4, $5)";
+const lecturerTimetable = "SELECT t.day AS day, t.time AS time, s.name AS subject FROM timetable t, subject s WHERE t.subject_id = s.id AND lecturer_id = $1";
+const addSubjects = "INSERT INTO student_subject (student_id, subject_id) values ($1, $2)";
+const studentTimetable = "SELECT t.day, s.name AS subject, t.time  FROM timetable t JOIN student_subject ss ON ss.subject_id = t.subject_id JOIN subject s ON ss.subject_id = s.id WHERE ss.student_id = $1";
+const addSubjectsPerCourse = "INSERT INTO subject (name, course_id) values ($1, $2)";
+const addCourse = "INSERT INTO course (name) values ($1)";
+const appointmentsByid = "SELECT * FROM bookings WHERE user_id =$1";
 
 
 
@@ -29,6 +39,7 @@ module.exports ={
     totalBookings,
     totalIssues,
     totalUsers,
+    totalNotifications,
     reportAnIssue,
     getIssues,
     
@@ -39,6 +50,14 @@ module.exports ={
     getClientByEmail,
     getClientPasswordByEmail,
     addClient,
-    book
-    
-};
+    book,
+    getCourses,
+    subjectPerCourse,
+    setTimetable,
+    lecturerTimetable,
+    addSubjects,
+    studentTimetable,
+    addSubjectsPerCourse,
+    addCourse,
+    appointmentsByid
+}; 

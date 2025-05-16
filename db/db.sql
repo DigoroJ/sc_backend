@@ -5,7 +5,7 @@ CREATE TABLE "user" (
     password VARCHAR(255) NOT NULL,
     name VARCHAR(100) NOT NULL,
     surname VARCHAR(100) NOT NULL,
-    role VARCHAR(50) CHECK (role IN ('student', 'teacher', 'admin')) NOT NULL,
+    role VARCHAR(50) CHECK (role IN ('student', 'lecturer', 'admin')) NOT NULL,
     course_id INT,
     FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE SET NULL
 );

@@ -29,7 +29,7 @@ pool.query(`
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL, 
     name VARCHAR(100) NOT NULL,
     surname VARCHAR(100) NOT NULL,
     role VARCHAR(50) CHECK (role IN ('student', 'teacher', 'admin')) NOT NULL,
@@ -48,9 +48,10 @@ CREATE TABLE IF NOT EXISTS timetable (
     id SERIAL PRIMARY KEY,
     day VARCHAR(9) CHECK (day IN ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')) NOT NULL,
     time TIME NOT NULL,
-    subject_id INT,
+    lecturer_id INT,
     course_id INT,
-    FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE
+    FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE,
+    FOREIGN KEY (lecturer_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Create the 'course_timetable' table
@@ -83,6 +84,14 @@ CREATE TABLE IF NOT EXISTS bookings (
     time VARCHAR(5) NOT NULL,
     date date NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS subject (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    course_id INT NOT NULL,
+    FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE
+);
+
 
 `);
 
